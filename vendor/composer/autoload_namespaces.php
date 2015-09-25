@@ -6,5 +6,5 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Dribbble' => array($vendorDir . '/martinbean/dribbble-php/src'),
+    'Composer\\Installers\\' => array($vendorDir . '/composer/installers/src'),
 );

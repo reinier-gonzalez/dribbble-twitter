@@ -1,6 +1,5 @@
 {
     "require": {
-        "martinbean/dribbble-php": "dev-master",
-        "j7mbo/twitter-api-php": "dev-master"
+        "jublonet/codebird-php": "2.7.2"
     }
 }
