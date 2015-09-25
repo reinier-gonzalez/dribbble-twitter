@@ -1,7 +1,7 @@
 <?php
 
   // Dribbble
-  define( 'DRIBBBLE_CLIENT_ID', 	        '' );
+  define( 'DRIBBBLE_CLIENT_ID',           '' );
   define( 'DRIBBBLE_CLIENT_SECRET',       '' );
   define( 'DRIBBBLE_CLIENT_ACCESS_TOKEN', '' );
   define( 'DRIBBBLE_REDIRECT_URL',        '' );
