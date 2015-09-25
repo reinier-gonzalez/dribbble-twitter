@@ -1,0 +1,117 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "ad427962d6ee0c8c06490ee32dcae355",
+    "packages": [
+        {
+            "name": "j7mbo/twitter-api-php",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/J7mbo/twitter-api-php.git",
+                "reference": "a89ce3e294484aad7ae13dbabe45fb3928024ef8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/J7mbo/twitter-api-php/zipball/a89ce3e294484aad7ae13dbabe45fb3928024ef8",
+                "reference": "a89ce3e294484aad7ae13dbabe45fb3928024ef8",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.5,>=4.5.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "TwitterAPIExchange.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GNU Public License"
+            ],
+            "authors": [
+                {
+                    "name": "James Mallison",
+                    "homepage": "https://github.com/j7mbo/twitter-api-php"
+                }
+            ],
+            "description": "Simple PHP Wrapper for Twitter API v1.1 calls",
+            "homepage": "https://github.com/j7mbo/twitter-api-php",
+            "keywords": [
+                "api",
+                "php",
+                "twitter"
+            ],
+            "time": "2015-08-03 21:35:18"
+        },
+        {
+            "name": "martinbean/dribbble-php",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/martinbean/dribbble-php.git",
+                "reference": "bd7394e4f798f949c7c2fb927151d085141e291c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/martinbean/dribbble-php/zipball/bd7394e4f798f949c7c2fb927151d085141e291c",
+                "reference": "bd7394e4f798f949c7c2fb927151d085141e291c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Dribbble": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Zach Dunn"
+                },
+                {
+                    "name": "Martin Bean",
+                    "email": "martin@martinbean.co.uk",
+                    "homepage": "http://www.martinbean.co.uk"
+                }
+            ],
+            "description": "PHP wrapper for the Dribbble API.",
+            "homepage": "http://martinbean.github.com/dribbble-php/",
+            "keywords": [
+                "api",
+                "dribbble",
+                "php"
+            ],
+            "time": "2013-09-22 01:11:20"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "martinbean/dribbble-php": 20,
+        "j7mbo/twitter-api-php": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}
