@@ -103,7 +103,7 @@
       }
     break;
 
-    case 'twitter': // I copied some of this from https://github.com/jublonet/codebird-php and bitched it!
+    case 'twitter': // I copied some of this from https://github.com/jublonet/codebird-php and pimped it!
       if ( isset( $_GET['oauth_verifier'] ) && isset( $_SESSION['oauth_verify'] ) ) // shit, that hurts...
       {
         // verify the token
@@ -146,7 +146,7 @@
           echo "<br/>";
         }
 
-        die( "DONE!" ); // bitched!
+        die( "DONE!" ); // pimped!
       }
     break;
   }
