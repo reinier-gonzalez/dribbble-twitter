@@ -10,7 +10,7 @@
   {
     case 'dribbble':
       // get followees from dribbble
-      if ( isset( $_GET['code'] ) ) // got an access code? else GOTO: 83
+      if ( isset( $_GET['code'] ) ) // got an access code? else GOTO: 97
       {
         // ok let's check it
         $sCurrentState = $_SESSION['dribbble_state'];
@@ -77,7 +77,7 @@
                 $sAuthUrl = $oTwitter->oauth_authorize();
                 header( "Location: $sAuthUrl" ); // wait, wait, wait, i forgot to tell you... doesn't matter
 
-                // oh shit! what I'm I doing here? GOTO: 91
+                // oh shit! what I'm I doing here? GOTO: 106
 
                 $iPage++;
               } // look... no followee no biz.
