@@ -31,53 +31,66 @@
             $sAccessToken = $oResponse->access_token; // oh! look! an access token!!!
 
             // awesome, let's finally get the followees...
-            $sResponse = BaseApiModel::get( "https://api.dribbble.com/v1/user/following", [], ["Authorization: Bearer $sAccessToken"] ); // :o
-            $aFollowees = json_decode( $sResponse ); // TODO: try aaaaaaaaaaaaand... catch!
-
-            if ( $aFollowees ) // json-formatted with followers data? you better work....
+            $iPage = 0;
+            $aDribbbleFollowees = [];
+            do
             {
-              // uuuuuiiiuoww...
-              $aDribbbleFollowees = [];
-              foreach( $aFollowees as $oFollowee ) // yes sir, yes sir...
+              $sResponse = BaseApiModel::get( "https://api.dribbble.com/v1/user/following",
+                ['page' => $iPage],
+                ["Authorization: Bearer $sAccessToken"]
+              );
+              $aFollowees = json_decode( $sResponse ); // TODO: try aaaaaaaaaaaaand... catch!
+
+              if ( $aFollowees ) // json-formatted with followees data?
               {
-                // now this is boring...
-                $sTwitterUrl = isset( $oFollowee->followee->links->twitter ) ? $oFollowee->followee->links->twitter : '';
-                $sTwitterScreenName = preg_replace( '#.*\/(.*)#s', "\\1" , $sTwitterUrl ); // oh, oh, oh... @Dribble: it's a bitch I have to be regexping for this
-
-                if ( $sTwitterScreenName ) // has a twitter URL?
+                // uuuuuiiiuoww...
+                foreach( $aFollowees as $oFollowee ) // yes sir, yes sir...
                 {
-                  $aDribbbleFollowees[] = $sTwitterScreenName; // more and more power, power, poweeeeer ha ha haaaa
+                  // now this is boring...
+                  $sTwitterUrl = isset( $oFollowee->followee->links->twitter ) ? $oFollowee->followee->links->twitter : '';
+                  $sTwitterScreenName = preg_replace( '#.*\/(.*)#s', "\\1" , $sTwitterUrl ); // oh, oh, oh... @Dribble: it's a bitch I have to be regexping for this
+
+                  if ( $sTwitterScreenName ) // has a twitter URL?
+                  {
+                    $aDribbbleFollowees[] = $sTwitterScreenName; // more and more power, power, poweeeeer ha ha haaaa
+                  }
                 }
-              }
-              $_SESSION['dribbble_followees'] = $aDribbbleFollowees; // yup, got them all!
+                $_SESSION['dribbble_followees'] = $aDribbbleFollowees; // yup, got them all!
 
-              // finally!! Let's follow him/her/it on twitter!!! ..........
-              // Fuck! I forgot! oauth again :(
+                // finally!! Let's follow him/her/it on twitter!!! ..........
+                // Fuck! I forgot! oauth again :(
 
-              // let's get authorized on twitter... here we go again:
-              // get the request token
-              $oResponse = $oTwitter->oauth_requestToken([
-                'oauth_callback' => TWITTER_REDIRECT_URL // hey, get back to me!
-              ]);
+                // let's get authorized on twitter... here we go again:
+                // get the request token
+                $oResponse = $oTwitter->oauth_requestToken([
+                  'oauth_callback' => TWITTER_REDIRECT_URL // hey, get back to me!
+                ]);
 
-              // got it? store it, the token, the tokeeeeeeeeeeeen
-              $oTwitter->setToken( $oResponse->oauth_token, $oResponse->oauth_token_secret );
+                // got it? store it, the token, the tokeeeeeeeeeeeen
+                $oTwitter->setToken( $oResponse->oauth_token, $oResponse->oauth_token_secret );
 
-              $_SESSION['oauth_token']        = $oResponse->oauth_token;
-              $_SESSION['oauth_token_secret'] = $oResponse->oauth_token_secret;
-              $_SESSION['oauth_verify']       = true; // yeah bitch, just do it!!
+                $_SESSION['oauth_token']        = $oResponse->oauth_token;
+                $_SESSION['oauth_token_secret'] = $oResponse->oauth_token_secret;
+                $_SESSION['oauth_verify']       = true; // yeah bitch, just do it!!
 
-              // redirect to auth website
-              $sAuthUrl = $oTwitter->oauth_authorize();
-              header( "Location: $sAuthUrl" ); // wait, wait, wait, i forgot to tell you... doesn't matter
+                // redirect to auth website
+                $sAuthUrl = $oTwitter->oauth_authorize();
+                header( "Location: $sAuthUrl" ); // wait, wait, wait, i forgot to tell you... doesn't matter
 
-              // oh shit! what I'm I doing here? GOTO: 91
+                // oh shit! what I'm I doing here? GOTO: 91
 
-            } // look... no followee no biz.
-            else die( 'So sad, no followees on Dribbble...' );
+                $iPage++;
+              } // look... no followee no biz.
+
+            } while( $aFollowees );
+
+            if ( !$aDribbbleFollowees )
+            {
+              die( "So sad, no Dribbble followees..." );
+            }
 
           } // so sad, no access token :(
-          else die( "Oooops, didn't get the access token, try again?" );
+          else die( "Oooops, didn't get the access token" );
 
         } else die( "Damn Hackers!" ); // gotcha!
 
