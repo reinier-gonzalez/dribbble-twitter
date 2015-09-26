@@ -31,7 +31,7 @@
             $sAccessToken = $oResponse->access_token; // oh! look! an access token!!!
 
             // awesome, let's finally get the followees...
-            $iPage = 0;
+            $iPage = 1;
             $aDribbbleFollowees = [];
             do
             {
