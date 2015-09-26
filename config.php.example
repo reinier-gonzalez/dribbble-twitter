@@ -7,3 +7,6 @@
   define( 'DRIBBBLE_REDIRECT_URL',        '' );
 
   // Twitter
+  define( 'TWITTER_API_KEY',      '' );
+  define( 'TWITTER_API_SECRET',   '' );
+  define( 'TWITTER_REDIRECT_URL', '' );
