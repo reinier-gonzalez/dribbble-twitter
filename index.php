@@ -1,9 +1,7 @@
 <?php
   require 'bootstrap.php';
 
-  // TODO: create a dribble API wrapper class that works.... not like dribbble-php :p ... thank you guys.
-
-  session_start(); // let's do it
+  // TODO: create a dribble API wrapper class that works...
 
   $sStartService = 'dribbble'; // okeeeyy.....
   $sService = isset( $_GET['service'] ) ? $_GET['service'] : $sStartService; // makes sense
@@ -12,7 +10,7 @@
   {
     case 'dribbble':
       // get followees from dribbble
-      if ( isset( $_GET['code'] ) ) // got an access code? LOOKAT: XXX
+      if ( isset( $_GET['code'] ) ) // got an access code? else GOTO: 83
       {
         // ok let's check it
         $sCurrentState = $_SESSION['dribbble_state'];
@@ -73,11 +71,14 @@
               $sAuthUrl = $oTwitter->oauth_authorize();
               header( "Location: $sAuthUrl" ); // wait, wait, wait, i forgot to tell you... doesn't matter
 
-              // oh shit! what I'm I doing here? GOTO: XXX
+              // oh shit! what I'm I doing here? GOTO: 91
 
             } // look... no followee no biz.
+
           } // so sad, no access token :(
+
         } else die( "Damn Hackers!" ); // gotcha!
+
       } // TA-TA-TAAAAAAAAAN:
       else // 1st movement: OAUTH dance
       {
@@ -88,11 +89,7 @@
     break;
 
     case 'twitter': // I copied some of this from https://github.com/jublonet/codebird-php and bitched it!
-
-// ... yes sir, yes sir, nickle bag full
-// is it me or theres an oauth_token around? ... baa, baa, black sheep, have u any wool?
-
-      if ( !isset( $_SESSION['oauth_token'] ) && isset( $_GET['oauth_verifier'] ) && isset( $_SESSION['oauth_verify'] ) ) // shit, that hurts...
+      if ( isset( $_GET['oauth_verifier'] ) && isset( $_SESSION['oauth_verify'] ) ) // shit, that hurts...
       {
         // verify the token
         $oTwitter->setToken( $_SESSION['oauth_token'], $_SESSION['oauth_token_secret'] ); // if you say so....
@@ -103,15 +100,35 @@
           'oauth_verifier' => $_GET['oauth_verifier']
         ]);
 
-        // store the token (which is different from the request token!) .... naaaaah, so, why are they called the same?
-        $_SESSION['oauth_token']        = $oResponse->oauth_token;
-        $_SESSION['oauth_token_secret'] = $oResponse->oauth_token_secret;
+        // set the access tokens!
+        $oTwitter->setToken( $oResponse->oauth_token, $oResponse->oauth_token_secret );
 
         // now guys, we can finally follow!
         $aDribbbleFollowees = $_SESSION['dribbble_followees']; // told you i got them all
-        foreach( $aDribbbleFollowees as $sTwitterScreenName ) // you rememeber these were screen names right?
+        foreach( $aDribbbleFollowees as $sTwitterScreenName ) // you rememeber these screen names right?
         {
-          Debug::dumpFormatted( $oTwitterApi->friendships_create( ['screen_name' => $sTwitterScreenName], true ) );
+          echo "Following $sTwitterScreenName ..."; // oh, yes, oooh yes!
+
+          $oResponse = $oTwitter->friendships_create( [ // bam!
+            'screen_name' => $sTwitterScreenName,
+            'follow' => true
+            ]
+          );
+
+          if ( !isset( $oResponse->errors ) ) // no errors?
+          {
+            echo "done! <br/>";
+          }
+          else // :( got errors, show them
+          {
+            echo "ooops, got the following errors:<br/>";
+            foreach( $oResponse->errors as $oError )
+            {
+              echo "[$oError->code] $oError->message <br/>";
+            }
+          }
+
+          echo "<br/>";
         }
 
         die( "DONE!" ); // bitched!
