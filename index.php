@@ -74,6 +74,7 @@
               // oh shit! what I'm I doing here? GOTO: 91
 
             } // look... no followee no biz.
+            else die( 'So sad, no followees on Dribbble...' );
 
           } // so sad, no access token :(
 
