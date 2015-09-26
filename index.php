@@ -77,6 +77,7 @@
             else die( 'So sad, no followees on Dribbble...' );
 
           } // so sad, no access token :(
+          else die( "Oooops, didn't get the access token, try again?" );
 
         } else die( "Damn Hackers!" ); // gotcha!
 
